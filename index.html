@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Website</title>
+  <link rel="stylesheet" href="happy.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Happy Birthday! 🎂</h1>
+    <p>Enter your name and take a picture to celebrate!</p>
+
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">🌗 Toggle Dark Mode</button>
+
+    <div class="input-section">
+      <input type="text" id="nameInput" placeholder="Your Name" />
+      <select id="fontSelector">
+        <option value="'Arial', sans-serif">Arial</option>
+        <option value="'Courier New', monospace">Courier</option>
+        <option value="'Comic Sans MS', cursive">Comic Sans</option>
+      </select>
+
+      <div class="button-group">
+        <button onclick="openCamera()">Open Camera 📷</button>
+        <button class="hidden" id="captureButton" onclick="capturePhoto()">Capture 📸</button>
+      </div>
+
+      <video id="camera" class="hidden" autoplay></video>
+      <canvas id="snapshot" class="hidden"></canvas>
+      <button id="celebrateButton" onclick="showBirthdayMessage()">Celebrate 🎁</button>
+    </div>
+
+    <div id="birthdayMessage" class="message hidden">
+      <h2></h2>
+      <p>We hope your day is filled with joy and surprises! 🎉</p>
+      <img src="Partyimg.webp" alt="Birthday Gif" />
+    </div>
+
+    <h3>History</h3>
+    <ul id="history"></ul>
+
+    <audio id="birthdaySong" controls autoplay class="happy">
+      <source src="HappyBirthday.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script src="Utilized-1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
