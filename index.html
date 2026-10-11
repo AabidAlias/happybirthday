@@ -11,8 +11,6 @@
     <h1>🎉 Happy Birthday! 🎂</h1>
     <p>Enter your name and take a picture to celebrate!</p>
 
-    <button class="dark-mode-btn" onclick="toggleDarkMode()">🌗 Toggle Dark Mode</button>
-
     <div class="input-section">
       <input type="text" id="nameInput" placeholder="Your Name" />
       <select id="fontSelector">
@@ -22,25 +20,28 @@
       </select>
 
       <div class="button-group">
-        <button onclick="openCamera()">Open Camera 📷</button>
-        <button class="hidden" id="captureButton" onclick="capturePhoto()">Capture 📸</button>
+        <button id="openCameraButton" onclick="openCamera()">Open Camera 📷</button>
       </div>
 
       <video id="camera" class="hidden" autoplay></video>
+      <button class="hidden" id="captureButton" onclick="capturePhoto()">Capture 📸</button>
       <canvas id="snapshot" class="hidden"></canvas>
       <button id="celebrateButton" onclick="showBirthdayMessage()">Celebrate 🎁</button>
     </div>
 
     <div id="birthdayMessage" class="message hidden">
-      <h2></h2>
-      <p>We hope your day is filled with joy and surprises! 🎉</p>
-      <img src="Partyimg.webp" alt="Birthday Gif" />
+      <h2 class="reveal-item"></h2>
+      <p class="reveal-item">We hope your day is filled with joy and surprises! 🎉</p>
+      <p class="reveal-item">May your year ahead be full of laughter, love, and wonderful memories.</p>
+      <p id="birthdayJoke" class="reveal-item birthday-joke"></p>
+      <img class="reveal-item" src="Partyimg.webp" alt="Birthday celebration" />
     </div>
 
     <h3>History</h3>
     <ul id="history"></ul>
 
-    <audio id="birthdaySong" controls autoplay class="happy">
+    <!-- Audio is controlled programmatically after the Celebrate button is pressed. -->
+    <audio id="birthdaySong" class="happy" hidden>
       <source src="HappyBirthday.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>

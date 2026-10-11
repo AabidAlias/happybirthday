@@ -71,6 +71,24 @@ button:hover {
   border-radius: 10px;
 }
 
+.message {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.message p {
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.birthday-joke {
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff0ed;
+  color: #b33b30;
+  font-style: italic;
+}
+
 #history {
   margin-top: 20px;
   list-style: none;
@@ -86,4 +104,11 @@ button:hover {
 
 .happy {
   margin-top: 20px;
+}
+
+#camera,
+#snapshot {
+  width: 100%;
+  border: 3px solid #ff6f61;
+  border-radius: 10px;
 }

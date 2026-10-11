@@ -1,15 +1,10 @@
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
-  document.body.style.background = document.body.classList.contains('dark-mode')
-    ? 'linear-gradient(to right, #0f2027, #203a43, #2c5364)'
-    : 'linear-gradient(to right, #fbc2eb, #a6c1ee)';
-}
-
 const jokes = [
   "Why was the birthday cake sad? It felt crumby!",
   "What does a cake say to a friend? You're the icing on my day!",
   "Why do candles always go on top of cakes? Because it’s hard to light them from the bottom!"
 ];
+
+let hasCapturedPhoto = false;
 
 function showBirthdayMessage() {
   const nameInput = document.getElementById('nameInput');
@@ -17,15 +12,23 @@ function showBirthdayMessage() {
   const messageDiv = document.getElementById('birthdayMessage');
   const messageTitle = messageDiv.querySelector('h2');
   const birthdaySong = document.getElementById('birthdaySong');
+  const birthdayJoke = document.getElementById('birthdayJoke');
 
   const name = nameInput.value.trim();
+
+  if (!hasCapturedPhoto) {
+    alert("First click a photo so you can enjoy this moment and celebrate!");
+    return;
+  }
 
   if (name) {
     messageTitle.style.fontFamily = fontSelector.value;
     messageTitle.textContent = `Happy Birthday, ${name}! 🎉`;
-    messageDiv.classList.remove('hidden');
+    birthdayJoke.textContent = `Birthday joke: ${jokes[Math.floor(Math.random() * jokes.length)]}`;
+    revealBirthdayContent(messageDiv);
     birthdaySong.play();
     saveToHistory(name); // Save entry to history
+    celebrateWithConfetti();
   } else {
     alert("Please enter your name to celebrate!"); // Alert if no name is entered
   }
@@ -35,16 +38,19 @@ function showBirthdayMessage() {
 const video = document.getElementById('camera');
 const canvas = document.getElementById('snapshot');
 const captureButton = document.getElementById('captureButton');
+const openCameraButton = document.getElementById('openCameraButton');
 
 function openCamera() {
   navigator.mediaDevices.getUserMedia({ video: true })
     .then((stream) => {
       video.srcObject = stream;
       video.classList.remove('hidden');
+      openCameraButton.classList.add('hidden');
       captureButton.classList.remove('hidden');
     })
     .catch((error) => {
       console.error("Camera access denied:", error);
+      openCameraButton.classList.remove('hidden');
     });
 }
 
@@ -57,6 +63,7 @@ function capturePhoto() {
 
   const imageData = canvas.toDataURL('image/png');
   saveImageToLocalStorage(imageData);
+  hasCapturedPhoto = true;
 
   // Display the captured photo in the history list only once
   displayCapturedPhotoOnce(imageData);
@@ -84,6 +91,7 @@ function stopCamera() {
   tracks.forEach(track => track.stop());
   video.classList.add('hidden');
   captureButton.classList.add('hidden');
+  openCameraButton.classList.remove('hidden');
 }
 
 function saveToHistory(name) {
@@ -99,8 +107,7 @@ function saveImageToLocalStorage(imageData) {
   localStorage.setItem('latestPhoto', imageData);
 }
 
-// Confetti animation on Celebrate button click
-document.querySelector("#celebrateButton").addEventListener("click", () => {
+function celebrateWithConfetti() {
   confetti({
     particleCount: 150,
     spread: 80,
@@ -108,4 +115,14 @@ document.querySelector("#celebrateButton").addEventListener("click", () => {
     decay: 0.9,
     origin: { y: 0.7 }
   });
-});
+}
+
+function revealBirthdayContent(messageDiv) {
+  const items = messageDiv.querySelectorAll('.reveal-item');
+  items.forEach((item) => item.classList.add('hidden'));
+  messageDiv.classList.remove('hidden');
+
+  items.forEach((item, index) => {
+    setTimeout(() => item.classList.remove('hidden'), index * 700);
+  });
+}
